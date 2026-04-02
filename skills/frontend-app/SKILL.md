@@ -1,0 +1,281 @@
+---
+name: frontend-app
+description: 前端开发工程师技能（移动端App），用于移动端原生/跨平台应用开发、页面还原、接口对接等场景。当用户提到移动端开发、App开发、React Native开发、Flutter开发、原生App开发等与移动端App相关的工作时，务必调用此Skill。移动端开发需按照任务优先级从UI/UE设计文档读取设计稿进行还原，完成后执行自检，构建+启动通过后进行服务端接口检测，接口开发完成后执行接口对接。
+---
+
+# Frontend App Developer Skill
+
+前端开发工程师技能模块（移动端App），负责移动端应用开发、UI还原、接口对接等核心工作。
+
+## 核心能力
+
+- **移动端App开发**：原生/跨平台应用开发
+- **UI还原**：严格按设计稿还原界面
+- **多平台适配**：iOS/Android多平台支持
+- **前端自检**：构建验证、服务启动验证
+- **接口对接**：完成前后端接口联调
+
+## 工作流程
+
+### 阶段1：接收任务
+
+1. **读取设计文档**
+   - 从 `docs/ui-ue/projects/{project-name}/v{version}/设计规范.md` 读取设计规范
+   - 从 `docs/ui-ue/projects/{project-name}/v{version}/视觉设计.md` 读取视觉设计
+   - 从 `docs/ui-ue/projects/{project-name}/v{version}/交互设计.md` 读取交互设计
+
+2. **读取架构文档**
+   - 从 `docs/architect/projects/{project-name}/v{version}/技术架构设计.md` 读取技术栈
+   - 从 `docs/architect/projects/{project-name}/v{version}/接口设计.md` 读取接口定义
+
+3. **确认开发任务**
+   - 按优先级排序任务
+   - 确认目标平台（iOS/Android）
+   - 确认技术选型
+
+### 阶段2：UI还原开发
+
+**严格按照设计稿进行还原**：
+
+1. **原生组件还原**
+   - 使用原生UI组件
+   - 确保视觉与设计稿一致
+   - 还原所有状态
+
+2. **跨平台组件**
+   - React Native：使用原生组件+自定义组件
+   - Flutter：使用Material/Cupertino组件
+
+3. **多平台适配**
+   - iOS安全区域
+   - Android状态栏
+   - 导航栏高度适配
+
+### 阶段3：功能开发
+
+按优先级开发：
+
+- **P0**：核心业务流程
+- **P1**：用户中心、设置等功能
+- **P2**：分享、推送等增强功能
+
+### 阶段4：前端自检
+
+#### 4.1 构建验证
+
+**React Native**：
+```bash
+npx react-native bundle     # iOS
+npx react-native bundle     # Android
+```
+
+**Flutter**：
+```bash
+flutter build apk/ios
+```
+
+#### 4.2 服务启动验证
+
+**React Native**：
+```bash
+npx react-native run-ios
+npx react-native run-android
+```
+
+**Flutter**：
+```bash
+flutter run
+```
+
+**自检标准**：
+- [ ] 构建成功
+- [ ] App启动成功
+- [ ] 页面正常渲染
+- [ ] 无崩溃
+
+### 阶段5：后端接口检测
+
+1. **接口状态检查**
+   - 读取接口设计文档
+   - 识别待对接接口
+
+2. **接口测试**
+   - 测试接口可用性
+   - 验证响应格式
+
+### 阶段6：接口对接
+
+1. **接口联调**
+   - 调用后端接口
+   - 数据处理
+   - 异常处理
+
+2. **平台特性适配**
+   - iOS推送
+   - Android推送
+   - 分享功能
+   - 支付功能
+
+---
+
+## 技术栈
+
+### React Native方案
+
+| 类型 | 技术选型 |
+|------|----------|
+| 框架 | React Native |
+| 状态管理 | Redux Toolkit / MobX |
+| 导航 | React Navigation |
+| UI组件 | React Native Paper |
+| HTTP | Axios / Fetch |
+
+### Flutter方案
+
+| 类型 | 技术选型 |
+|------|----------|
+| 框架 | Flutter |
+| 状态管理 | Provider / Riverpod |
+| 导航 | go_router |
+| UI组件 | Material / Cupertino |
+| HTTP | Dio |
+
+---
+
+## 代码目录规范
+
+### React Native
+
+```
+app/
+├── src/
+│   ├── api/              # API接口定义
+│   ├── assets/           # 静态资源
+│   ├── components/       # 公共组件
+│   ├── pages/            # 页面
+│   │   └── {module}/
+│   │       └── index.tsx
+│   ├── navigation/       # 路由配置
+│   ├── store/            # 状态管理
+│   ├── styles/           # 样式
+│   ├── utils/            # 工具函数
+│   └── App.tsx
+├── ios/
+├── android/
+└── package.json
+```
+
+### Flutter
+
+```
+app/
+├── lib/
+│   ├── api/              # API接口定义
+│   ├── assets/           # 静态资源
+│   ├── components/       # 公共组件
+│   ├── pages/            # 页面
+│   │   └── {module}/
+│   │       └── index.dart
+│   ├── router/           # 路由配置
+│   ├── providers/         # 状态管理
+│   ├── styles/           # 样式
+│   ├── utils/            # 工具函数
+│   └── main.dart
+├── ios/
+├── android/
+└── pubspec.yaml
+```
+
+---
+
+## 平台适配规范
+
+### iOS适配
+
+| 项目 | 规范 |
+|------|------|
+| 安全区域 | 适配刘海屏 |
+| 状态栏 | Light/Dark模式适配 |
+| 导航栏 | 大标题/小标题适配 |
+
+### Android适配
+
+| 项目 | 规范 |
+|------|------|
+| 状态栏 | 沉浸式状态栏 |
+| 导航栏 | 适配虚拟导航栏 |
+| 权限 | 运行时权限申请 |
+
+---
+
+## UI还原检查清单
+
+### 视觉检查
+
+- [ ] 色彩与设计稿一致
+- [ ] 字体正确
+- [ ] 图标正确
+- [ ] 图片清晰
+
+### 布局检查
+
+- [ ] 布局与设计稿一致
+- [ ] 间距正确
+- [ ] 安全区域正确
+
+### 交互检查
+
+- [ ] 点击反馈正确
+- [ ] 手势操作正常
+- [ ] 页面切换流畅
+- [ ] 加载状态正常
+
+---
+
+## 自检清单
+
+### 构建自检
+
+- [ ] iOS构建成功
+- [ ] Android构建成功
+- [ ] 无编译错误
+
+### 启动自检
+
+- [ ] iOS启动成功
+- [ ] Android启动成功
+- [ ] 无崩溃
+- [ ] 页面渲染正常
+
+### 接口对接自检
+
+- [ ] 接口调用正常
+- [ ] 数据展示正确
+- [ ] 异常处理完善
+- [ ] 加载状态正常
+
+---
+
+## 文档输出
+
+### 输出目录结构
+
+```
+docs/frontend/app/
+└── projects/
+    └── {project-name}/
+        └── v{version}/
+            ├── 自检报告.md
+            ├── 接口对接记录.md
+            └── UI还原检查.md
+```
+
+---
+
+## 工作原则
+
+1. **UI优先**：严格按照设计稿还原，不自行更改设计
+2. **多平台兼容**：确保iOS和Android体验一致
+3. **性能优先**：优化启动速度、内存占用
+4. **自检通过再对接**：必须构建+启动验证通过
+5. **原生体验**：尊重各平台的交互规范

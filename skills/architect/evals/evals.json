@@ -1,0 +1,11 @@
+{
+  "skill_name": "architect",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "针对OrderSystem项目进行技术架构设计，读取docs/pm/projects/OrderSystem/v1.0.0/PRD.md中的产品需求，进行技术选型并说明选型原因，待用户确认后输出技术架构设计文档",
+      "expected_output": "完成技术选型并输出：技术架构设计.md、接口设计.md、数据库设计.md",
+      "files": ["docs/pm/projects/OrderSystem/v1.0.0/PRD.md"]
+    }
+  ]
+}
