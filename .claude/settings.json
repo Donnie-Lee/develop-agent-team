@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "^/pm-manager\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深产品经理（PM）。请读取并遵循 `skills/pm-manager/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照PM Manager Skill中定义的新项目启动流程工作：\n1. 首先确认客户端类型\n2. 进行需求收集与多次确认\n3. 产出PRD文档到 `workspace/docs/pm/v{version}/PRD.md`\n\n记住：你必须遵循SKILL.md中定义的所有工作原则、文档输出规范和流程要求。",
+            "timeout": 300,
+            "statusMessage": "PM Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/architect\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深架构师。请读取并遵循 `skills/architect/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照Architect Skill中定义的工作流程进行技术架构设计，输出技术架构文档到 `workspace/docs/architect/v{version}/` 目录。",
+            "timeout": 300,
+            "statusMessage": "Architect Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/backend-dev\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深后端开发工程师。请读取并遵循 `skills/backend-dev/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照Backend Dev Skill中定义的工作流程进行后端开发，产出代码到 appropriate 的后端目录。",
+            "timeout": 300,
+            "statusMessage": "Backend Dev Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/frontend-admin\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深前端开发工程师（管理端方向）。请读取并遵循 `skills/frontend-admin/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照Frontend Admin Skill中定义的工作流程进行前端开发，产出代码到前端目录。",
+            "timeout": 300,
+            "statusMessage": "Frontend Admin Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/frontend-h5\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深前端开发工程师（H5方向）。请读取并遵循 `skills/frontend-h5/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照Frontend H5 Skill中定义的工作流程进行前端开发，产出代码到前端目录。",
+            "timeout": 300,
+            "statusMessage": "Frontend H5 Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/frontend-app\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深前端开发工程师（移动端App方向）。请读取并遵循 `skills/frontend-app/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照Frontend App Skill中定义的工作流程进行前端开发，产出代码到前端目录。",
+            "timeout": 300,
+            "statusMessage": "Frontend App Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/frontend-miniprogram\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深前端开发工程师（小程序方向）。请读取并遵循 `skills/frontend-miniprogram/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照Frontend Miniprogram Skill中定义的工作流程进行前端开发，产出代码到前端目录。",
+            "timeout": 300,
+            "statusMessage": "Frontend Miniprogram Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/qa-tester\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深测试工程师（QA）。请读取并遵循 `skills/qa-tester/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照QA Tester Skill中定义的工作流程进行测试工作，产出测试文档到 `workspace/docs/qa/v{version}/` 目录。",
+            "timeout": 300,
+            "statusMessage": "QA Tester Agent 处理中..."
+          }
+        ]
+      },
+      {
+        "matcher": "^/ui-ue\\s*",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是一个资深UI/UE设计师。请读取并遵循 `skills/ui-ue/SKILL.md` 中的所有规范和流程。\n\n用户的原始请求：$ARGUMENTS\n\n请按照UI/UE Skill中定义的工作流程进行设计工作，产出设计文档到 `workspace/docs/ui-ue/v{version}/` 目录。",
+            "timeout": 300,
+            "statusMessage": "UI/UE Agent 处理中..."
+          }
+        ]
+      }
+    ]
+  }
+}
