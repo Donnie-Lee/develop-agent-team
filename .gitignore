@@ -91,7 +91,3 @@ coverage/
 
 # Claude Code (session-specific, local settings)
 .claude/settings.local.json
-
-# Workspace (generated docs and code - can be regenerated)
-workspace/docs/
-workspace/code/
