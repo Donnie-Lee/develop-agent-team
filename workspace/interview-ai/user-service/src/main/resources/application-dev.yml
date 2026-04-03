@@ -1,0 +1,67 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/interview_ai?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: postgres
+    password: postgres
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 2
+          max-wait: -1ms
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: localhost:8848
+
+mybatis-plus:
+  # Mapper XML 文件位置（若有自定义 SQL 需配置）
+  mapper-locations: classpath*:/mapper/**/*.xml
+  # 实体类包路径
+  type-aliases-package: com.interviewai.user.entity
+  configuration:
+    # 开启下划线转驼峰（数据库字段 user_name → 实体类属性 userName）
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deletedAt
+      logic-delete-value: now()
+      logic-not-delete-value: null
+
+jwt:
+  secret: dev-secret-key-change-in-production-12345678
+  access-token-expiration: 900000
+  refresh-token-expiration: 604800000
+
+aliyun:
+  sms:
+    access-key-id:
+    access-key-secret:
+    endpoint: dysmsapi.aliyuncs.com
+    sign-name: InterviewAI
+    template-code: SMS_xxx
+
+logging:
+  level:
+    com.interviewai: DEBUG
+    org.springframework.web: INFO
