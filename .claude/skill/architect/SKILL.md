@@ -31,6 +31,8 @@ description: 架构师技能，用于系统架构设计、技术选型、技术�
 
 ### 阶段2：技术选型（需用户确认）
 
+**重要：所有技术栈确定前必须询问用户并获得确认，特别是前端每个端的技术栈必须单独询问确认。**
+
 对于每个技术选型项，必须：
 
 1. **列出候选方案**
@@ -46,6 +48,19 @@ description: 架构师技能，用于系统架构设计、技术选型、技术�
 3. **等待用户确认**
    - 输出选型建议
    - 用户确认后方可继续
+
+**前端各端必须按以下顺序逐一确认：**
+- 管理端技术栈 → 用户确认
+- H5端技术栈 → 用户确认
+- 移动端技术栈 → 用户确认
+- 小程序技术栈 → 用户确认
+
+**后端技术栈必须确认的项目：**
+- 开发语言
+- Web框架
+- 数据库
+- 缓存
+- 消息中间件（Kafka/RabbitMQ/RocketMQ）
 
 ### 阶段3：文档生成
 
@@ -120,20 +135,22 @@ workspace/docs/architect/
 
 ### 后端技术选型
 
-| 层级    | 候选方案                               | 选型依据        |
-| ----- | ---------------------------------- | ----------- |
-| 开发语言  | Java/Python/Go/Node.js             | 团队技术储备、性能要求 |
-| Web框架 | Spring Boot/Django/FastAPI/Express | 成熟度、生态      |
-| 数据库   | MySQL/PostgreSQL/MongoDB           | 数据结构、并发需求   |
-| 缓存    | Redis/Memcached                    | 访问模式、延迟要求   |
-| 消息队列  | Kafka/RabbitMQ/RocketMQ            | 吞吐量、可靠性     |
+| 层级 | 候选方案 | 选型依据 |
+|------|----------|----------|
+| 开发语言 | Java/Python/Go/Node.js | 团队技术储备、性能要求 |
+| Web框架 | Spring Boot/Django/FastAPI/Express | 成熟度、生态 |
+| 数据库 | MySQL/PostgreSQL/MongoDB | 数据结构、并发需求 |
+| 缓存 | Redis/Memcached | 访问模式、延迟要求 |
+| 消息队列 | Kafka/RabbitMQ/RocketMQ | 吞吐量、可靠性 |
 
 ### 前端技术选型
 
-| 端   | 候选方案                    | 选型依据       |
-| --- | ----------------------- | ---------- |
-| 管理端 | React/Vue + Ant Design  | 团队技术储备     |
-| H5  | React/Vue + Vant        | 性能要求、适配需求  |
+**重要：前端每个端的技术栈都必须单独询问用户并确认后方可确定。**
+
+| 端 | 候选方案 | 选型依据 |
+|----|----------|----------|
+| 管理端 | React/Vue + Ant Design/Element UI/Arco Design | 团队技术储备 |
+| H5 | React/Vue + Vant/WeUI | 性能要求、适配需求 |
 | 移动端 | React Native/Flutter/原生 | 性能要求、跨平台需求 |
 | 小程序 | Taro/Uni-app/原生         | 多端支持、代码复用  |
 
