@@ -242,3 +242,12 @@ workspace/docs/frontend/admin/
 3. **接口检测**：在对接前先检测后端接口开发状态
 4. **兼容性**：确保主流浏览器兼容性
 5. **性能**：控制首屏加载时间，优化用户体验
+
+## 端定义
+
+本Skill负责**管理端**前端开发，任务来源于任务排期中的"管理端"任务。
+
+| 端 | 说明 |
+|----|------|
+| 管理端 | Web管理后台，供运营/管理人员使用，读取 `workspace/docs/ui-ue/v{version}/admin/` 下的设计文档 |
+| Portal端 | 由 frontend-h5/frontend-app/frontend-miniprogram 负责 |
