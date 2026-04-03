@@ -279,3 +279,14 @@ workspace/docs/frontend/app/
 3. **性能优先**：优化启动速度、内存占用
 4. **自检通过再对接**：必须构建+启动验证通过
 5. **原生体验**：尊重各平台的交互规范
+
+## 端定义
+
+本Skill负责**Portal端中的移动端App**前端开发，任务来源于任务排期中的"Portal端"任务。
+
+| 端 | 说明 |
+|----|------|
+| 管理端 | 由 frontend-admin 负责 |
+| Portal端 | 用户前端，包含H5/App（本案）/小程序，由 frontend-h5/frontend-app/frontend-miniprogram 分别负责 |
+
+> 设计文档读取 `workspace/docs/ui-ue/v{version}/app/` 下的文档
