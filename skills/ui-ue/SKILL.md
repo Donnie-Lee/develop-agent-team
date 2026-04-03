@@ -20,22 +20,22 @@ UI/UE设计师技能模块，负责视觉设计、交互设计、多端设计规
 
 | 端 | 适配平台 | 输出目录 |
 |----|----------|----------|
-| 管理端 | Web管理后台 | `docs/ui-ue/projects/{project}/v{version}/admin/` |
-| H5端 | 移动端H5网页 | `docs/ui-ue/projects/{project}/v{version}/h5/` |
-| 移动端App | iOS/Android App | `docs/ui-ue/projects/{project}/v{version}/app/` |
-| 小程序 | 微信/支付宝/抖音小程序 | `docs/ui-ue/projects/{project}/v{version}/miniprogram/` |
+| 管理端 | Web管理后台 | `workspace/docs/ui-ue/v{version}/admin/` |
+| H5端 | 移动端H5网页 | `workspace/docs/ui-ue/v{version}/h5/` |
+| 移动端App | iOS/Android App | `workspace/docs/ui-ue/v{version}/app/` |
+| 小程序 | 微信/支付宝/抖音小程序 | `workspace/docs/ui-ue/v{version}/miniprogram/` |
 
 ## 工作流程
 
 ### 阶段1：接收输入
 
 1. **读取PM文档**
-   - 从 `docs/pm/projects/{project-name}/v{version}/PRD.md` 读取产品需求
-   - 从 `docs/pm/projects/{project-name}/v{version}/原型说明.md` 读取原型设计
+   - 从 `workspace/docs/pm/v{version}/PRD.md` 读取产品需求
+   - 从 `workspace/docs/pm/v{version}/原型说明.md` 读取原型设计
 
 2. **读取架构文档**
-   - 从 `docs/architect/projects/{project-name}/v{version}/技术架构设计.md` 读取技术架构
-   - 从 `docs/architect/projects/{project-name}/v{version}/接口设计.md` 读取接口设计
+   - 从 `workspace/docs/architect/v{version}/技术架构设计.md` 读取技术架构
+   - 从 `workspace/docs/architect/v{version}/接口设计.md` 读取接口设计
 
 3. **综合分析**
    - 理解产品定位和目标用户
@@ -109,33 +109,33 @@ UI/UE设计师技能模块，负责视觉设计、交互设计、多端设计规
 
 | 文档类型 | 输出路径 |
 |----------|----------|
-| 管理端设计规范 | `docs/ui-ue/projects/{project}/v{version}/admin/设计规范.md` |
-| 管理端视觉设计 | `docs/ui-ue/projects/{project}/v{version}/admin/视觉设计.md` |
-| 管理端组件规范 | `docs/ui-ue/projects/{project}/v{version}/admin/组件规范.md` |
+| 管理端设计规范 | `workspace/docs/ui-ue/v{version}/admin/设计规范.md` |
+| 管理端视觉设计 | `workspace/docs/ui-ue/v{version}/admin/视觉设计.md` |
+| 管理端组件规范 | `workspace/docs/ui-ue/v{version}/admin/组件规范.md` |
 
 #### H5端输出
 
 | 文档类型 | 输出路径 |
 |----------|----------|
-| H5设计规范 | `docs/ui-ue/projects/{project}/v{version}/h5/设计规范.md` |
-| H5视觉设计 | `docs/ui-ue/projects/{project}/v{version}/h5/视觉设计.md` |
-| H5适配规范 | `docs/ui-ue/projects/{project}/v{version}/h5/适配规范.md` |
+| H5设计规范 | `workspace/docs/ui-ue/v{version}/h5/设计规范.md` |
+| H5视觉设计 | `workspace/docs/ui-ue/v{version}/h5/视觉设计.md` |
+| H5适配规范 | `workspace/docs/ui-ue/v{version}/h5/适配规范.md` |
 
 #### 移动端App输出
 
 | 文档类型 | 输出路径 |
 |----------|----------|
-| App设计规范 | `docs/ui-ue/projects/{project}/v{version}/app/设计规范.md` |
-| App视觉设计 | `docs/ui-ue/projects/{project}/v{version}/app/视觉设计.md` |
-| App平台适配 | `docs/ui-ue/projects/{project}/v{version}/app/平台适配.md` |
+| App设计规范 | `workspace/docs/ui-ue/v{version}/app/设计规范.md` |
+| App视觉设计 | `workspace/docs/ui-ue/v{version}/app/视觉设计.md` |
+| App平台适配 | `workspace/docs/ui-ue/v{version}/app/平台适配.md` |
 
 #### 小程序端输出
 
 | 文档类型 | 输出路径 |
 |----------|----------|
-| 小程序设计规范 | `docs/ui-ue/projects/{project}/v{version}/miniprogram/设计规范.md` |
-| 小程序视觉设计 | `docs/ui-ue/projects/{project}/v{version}/miniprogram/视觉设计.md` |
-| 小程序平台规范 | `docs/ui-ue/projects/{project}/v{version}/miniprogram/平台规范.md` |
+| 小程序设计规范 | `workspace/docs/ui-ue/v{version}/miniprogram/设计规范.md` |
+| 小程序视觉设计 | `workspace/docs/ui-ue/v{version}/miniprogram/视觉设计.md` |
+| 小程序平台规范 | `workspace/docs/ui-ue/v{version}/miniprogram/平台规范.md` |
 
 ### 阶段4：自审查核验
 
@@ -164,7 +164,7 @@ UI/UE设计师技能模块，负责视觉设计、交互设计、多端设计规
 ### 输出目录结构
 
 ```
-docs/ui-ue/
+workspace/docs/ui-ue/
 └── projects/
     └── {project-name}/
         └── v{version}/

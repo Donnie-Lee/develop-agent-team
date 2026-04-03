@@ -1,0 +1,23 @@
+{
+  "skill_name": "frontend-admin",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "针对OrderSystem管理端进行UI还原开发，读取workspace/docs/ui-ue/v1.0.0/admin/中的设计规范和视觉设计文档，完成登录页面和首页的开发",
+      "expected_output": "完成管理端登录页和首页开发，输出自检报告（构建成功+服务启动成功）",
+      "files": ["workspace/docs/ui-ue/v1.0.0/admin/设计规范.md", "workspace/docs/ui-ue/v1.0.0/admin/视觉设计.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "对OrderSystem管理端进行用户管理模块开发，完成用户列表、新增用户、编辑用户等页面",
+      "expected_output": "完成用户管理模块开发，输出UI还原检查报告",
+      "files": ["workspace/docs/ui-ue/v1.0.0/admin/组件规范.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "对OrderSystem管理端进行接口对接，完成用户登录接口和用户管理接口的联调",
+      "expected_output": "完成接口对接，输出接口对接记录",
+      "files": ["workspace/docs/architect/v1.0.0/接口设计.md"]
+    }
+  ]
+}

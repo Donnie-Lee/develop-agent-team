@@ -20,13 +20,13 @@ description: 前端开发工程师技能（H5端），用于移动端H5页面开
 ### 阶段1：接收任务
 
 1. **读取设计文档**
-   - 从 `docs/ui-ue/projects/{project-name}/v{version}/设计规范.md` 读取设计规范
-   - 从 `docs/ui-ue/projects/{project-name}/v{version}/视觉设计.md` 读取视觉设计
-   - 从 `docs/ui-ue/projects/{project-name}/v{version}/交互设计.md` 读取交互设计
+   - 从 `workspace/docs/ui-ue/v{version}/设计规范.md` 读取设计规范
+   - 从 `workspace/docs/ui-ue/v{version}/视觉设计.md` 读取视觉设计
+   - 从 `workspace/docs/ui-ue/v{version}/交互设计.md` 读取交互设计
 
 2. **读取架构文档**
-   - 从 `docs/architect/projects/{project-name}/v{version}/技术架构设计.md` 读取技术栈
-   - 从 `docs/architect/projects/{project-name}/v{version}/接口设计.md` 读取接口定义
+   - 从 `workspace/docs/architect/v{version}/技术架构设计.md` 读取技术栈
+   - 从 `workspace/docs/architect/v{version}/接口设计.md` 读取接口定义
 
 3. **确认开发任务**
    - 按优先级排序任务
@@ -231,7 +231,7 @@ padding-bottom: env(safe-area-inset-bottom);
 ### 输出目录结构
 
 ```
-docs/frontend/h5/
+workspace/docs/frontend/h5/
 └── projects/
     └── {project-name}/
         └── v{version}/

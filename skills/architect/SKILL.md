@@ -21,8 +21,8 @@ description: 架构师技能，用于系统架构设计、技术选型、技术�
 ### 阶段1：接收需求
 
 1. **读取PM文档**
-   - 从 `docs/pm/projects/{project-name}/v{version}/PRD.md` 读取产品需求
-   - 从 `docs/pm/projects/{project-name}/v{version}/原型说明.md` 读取原型设计
+   - 从 `workspace/docs/pm/v{version}/PRD.md` 读取产品需求
+   - 从 `workspace/docs/pm/v{version}/原型说明.md` 读取原型设计
 
 2. **确认项目信息**
    - 项目名称
@@ -55,11 +55,11 @@ description: 架构师技能，用于系统架构设计、技术选型、技术�
 
 | 文档类型 | 输出路径 |
 |----------|----------|
-| 技术架构设计文档 | `docs/architect/projects/{project-name}/v{version}/技术架构设计.md` |
-| 接口设计文档 | `docs/architect/projects/{project-name}/v{version}/接口设计.md` |
-| 数据库设计文档 | `docs/architect/projects/{project-name}/v{version}/数据库设计.md` |
-| 技术评审报告 | `docs/architect/projects/{project-name}/v{version}/技术评审报告.md` |
-| 功能任务排期表 | `docs/architect/projects/{project-name}/v{version}/任务排期.md` |
+| 技术架构设计文档 | `workspace/docs/architect/v{version}/技术架构设计.md` |
+| 接口设计文档 | `workspace/docs/architect/v{version}/接口设计.md` |
+| 数据库设计文档 | `workspace/docs/architect/v{version}/数据库设计.md` |
+| 技术评审报告 | `workspace/docs/architect/v{version}/技术评审报告.md` |
+| 功能任务排期表 | `workspace/docs/architect/v{version}/任务排期.md` |
 
 ### 阶段3.5：功能任务排期
 
@@ -83,7 +83,7 @@ description: 架构师技能，用于系统架构设计、技术选型、技术�
    - 制定应急计划
 
 4. **输出版本排期表**
-   - 输出到：`docs/architect/projects/{project-name}/v{version}/任务排期.md`
+   - 输出到：`workspace/docs/architect/v{version}/任务排期.md`
 
 ### 阶段4：自审查核验
 
@@ -110,7 +110,7 @@ description: 架构师技能，用于系统架构设计、技术选型、技术�
 ### 输出目录结构
 
 ```
-docs/architect/
+workspace/docs/architect/
 └── projects/
     └── {project-name}/
         └── v{version}/

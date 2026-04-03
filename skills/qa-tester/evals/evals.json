@@ -1,0 +1,23 @@
+{
+  "skill_name": "qa-tester",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "针对OrderSystem项目进行测试用例编写，读取workspace/docs/pm/v1.0.0/PRD.md中的产品需求，编写功能测试用例和接口测试用例",
+      "expected_output": "在workspace/docs/qa/v1.0.0/test-cases/目录下创建功能测试用例.md和接口测试用例.md",
+      "files": ["workspace/docs/pm/v1.0.0/PRD.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "对OrderSystem项目执行系统测试，编写测试计划并执行功能测试，输出测试报告",
+      "expected_output": "在workspace/docs/qa/v1.0.0/目录下创建测试计划.md和测试报告.md",
+      "files": ["workspace/docs/pm/v1.0.0/PRD.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "对OrderSystem项目的登录功能进行自动化测试脚本开发",
+      "expected_output": "在workspace/docs/qa/v1.0.0/automation/目录下创建登录模块自动化测试脚本",
+      "files": []
+    }
+  ]
+}

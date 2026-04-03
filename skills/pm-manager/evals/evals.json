@@ -4,19 +4,19 @@
     {
       "id": 1,
       "prompt": "新项目启动：创建一个名为OrderSystem的电商订单管理系统，需要包含用户下单、订单查询、订单取消、订单退款等核心功能，版本为v1.0.0",
-      "expected_output": "在docs/pm/projects/OrderSystem/v1.0.0/目录下创建PRD.md和原型说明.md文档",
+      "expected_output": "在workspace/docs/pm/v1.0.0/目录下创建PRD.md和原型说明.md文档",
       "files": []
     },
     {
       "id": 2,
       "prompt": "提交一个Bug：订单系统在支付页面点击支付按钮后无响应，影响所有用户下单，紧急需要修复",
-      "expected_output": "在docs/pm/bugs/OrderSystem/目录下创建bug-tracker.md，记录P0级别Bug",
+      "expected_output": "在workspace/docs/pm/v1.0.0/bugs/目录下创建bug-tracker.md，记录P0级别Bug",
       "files": []
     },
     {
       "id": 3,
       "prompt": "需求变更：在OrderSystem项目中，原来的用户下单功能需要增加优惠券抵扣功能，请记录这次需求变更",
-      "expected_output": "在docs/pm/projects/OrderSystem/v1.0.0/目录下创建需求变更记录.md",
+      "expected_output": "在workspace/docs/pm/v1.0.0/目录下创建需求变更记录.md",
       "files": []
     }
   ]

@@ -27,7 +27,7 @@
 
 | 文档 | 路径 | 版本 |
 |------|------|------|
-| 接口设计 | docs/architect/projects/{project}/v{version}/接口设计.md | v{version} |
+| 接口设计 | workspace/docs/architect/v{version}/接口设计.md | v{version} |
 
 ---
 

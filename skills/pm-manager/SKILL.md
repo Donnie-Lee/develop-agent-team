@@ -67,7 +67,7 @@ description: 产品经理（PM）技能，用于管理项目需求、新项目�
 | 移动端App | 需要/不需要 | "是否需要iOS/Android原生App？" |
 | 小程序端 | 需要/哪些 | "是否需要微信/支付宝/抖音小程序？" |
 
-**确认输出**：`docs/pm/projects/{project}/v{version}/客户端确认.md`
+**确认输出**：`workspace/docs/pm/v{version}/客户端确认.md`
 
 ```markdown
 # 客户端确认书
@@ -185,10 +185,10 @@ description: 产品经理（PM）技能，用于管理项目需求、新项目�
 
 | 文档 | 路径 |
 |------|------|
-| 客户端确认书 | `docs/pm/projects/{project}/v{version}/客户端确认.md` |
-| PRD | `docs/pm/projects/{project}/v{version}/PRD.md` |
-| 原型说明 | `docs/pm/projects/{project}/v{version}/原型说明.md` |
-| 需求确认记录 | `docs/pm/projects/{project}/v{version}/需求确认记录.md` |
+| 客户端确认书 | `workspace/docs/pm/v{version}/客户端确认.md` |
+| PRD | `workspace/docs/pm/v{version}/PRD.md` |
+| 原型说明 | `workspace/docs/pm/v{version}/原型说明.md` |
+| 需求确认记录 | `workspace/docs/pm/v{version}/需求确认记录.md` |
 
 ---
 
@@ -217,7 +217,7 @@ description: 产品经理（PM）技能，用于管理项目需求、新项目�
 ### 输出目录结构
 
 ```
-docs/pm/
+workspace/docs/pm/
 ├── projects/
 │   └── {project-name}/
 │       └── v{version}/

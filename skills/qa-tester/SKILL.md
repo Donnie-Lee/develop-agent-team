@@ -21,16 +21,16 @@ description: 测试工程师技能，用于测试用例编写、自动化测试�
 ### 阶段1：接收输入
 
 1. **读取需求文档**
-   - 从 `docs/pm/projects/{project-name}/v{version}/PRD.md` 读取产品需求
+   - 从 `workspace/docs/pm/v{version}/PRD.md` 读取产品需求
    - 理解核心功能和业务流程
 
 2. **读取设计文档**
-   - 从 `docs/ui-ue/projects/{project-name}/v{version}/` 读取UI设计规范
-   - 从 `docs/ui-ue/projects/{project-name}/v{version}/交互设计.md` 读取交互设计
+   - 从 `workspace/docs/ui-ue/v{version}/` 读取UI设计规范
+   - 从 `workspace/docs/ui-ue/v{version}/交互设计.md` 读取交互设计
 
 3. **读取技术文档**
-   - 从 `docs/architect/projects/{project-name}/v{version}/接口设计.md` 读取接口设计
-   - 从 `docs/architect/projects/{project-name}/v{version}/技术架构设计.md` 读取技术架构
+   - 从 `workspace/docs/architect/v{version}/接口设计.md` 读取接口设计
+   - 从 `workspace/docs/architect/v{version}/技术架构设计.md` 读取技术架构
 
 ### 阶段2：测试用例编写
 
@@ -152,7 +152,7 @@ description: 测试工程师技能，用于测试用例编写、自动化测试�
 ### 输出目录结构
 
 ```
-docs/qa/
+workspace/docs/qa/
 └── projects/
     └── {project-name}/
         └── v{version}/

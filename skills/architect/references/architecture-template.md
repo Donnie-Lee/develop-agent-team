@@ -186,8 +186,8 @@
 
 | 文档 | 路径 |
 |------|------|
-| PRD | docs/pm/projects/{project-name}/v{version}/PRD.md |
-| 原型说明 | docs/pm/projects/{project-name}/v{version}/原型说明.md |
+| PRD | workspace/docs/pm/v{version}/PRD.md |
+| 原型说明 | workspace/docs/pm/v{version}/原型说明.md |
 
 ### 7.2 术语表
 

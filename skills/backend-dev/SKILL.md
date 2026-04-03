@@ -20,10 +20,10 @@ description: 后端开发工程师技能，用于业务功能开发、API实现�
 ### 阶段1：接收任务
 
 1. **读取架构文档**
-   - 从 `docs/architect/projects/{project-name}/v{version}/技术架构设计.md` 读取技术架构
-   - 从 `docs/architect/projects/{project-name}/v{version}/接口设计.md` 读取接口定义
-   - 从 `docs/architect/projects/{project-name}/v{version}/数据库设计.md` 读取数据库设计
-   - 从 `docs/architect/projects/{project-name}/v{version}/任务排期.md` 读取任务优先级
+   - 从 `workspace/docs/architect/v{version}/技术架构设计.md` 读取技术架构
+   - 从 `workspace/docs/architect/v{version}/接口设计.md` 读取接口定义
+   - 从 `workspace/docs/architect/v{version}/数据库设计.md` 读取数据库设计
+   - 从 `workspace/docs/architect/v{version}/任务排期.md` 读取任务优先级
 
 2. **确认开发任务**
    - 按优先级排序任务
@@ -204,7 +204,7 @@ backend/
 ### 输出目录结构
 
 ```
-docs/backend/
+workspace/docs/backend/
 └── projects/
     └── {project-name}/
         └── v{version}/
@@ -227,7 +227,7 @@ docs/backend/
 项目名称：{project-name}
 版本：v{version}
 后端服务地址：http://localhost:{port}
-接口文档：docs/architect/projects/{project-name}/v{version}/接口设计.md
+接口文档：workspace/docs/architect/v{version}/接口设计.md
 
 已完成接口：
 1. /api/v1/user/register - POST

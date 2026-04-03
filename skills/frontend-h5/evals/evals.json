@@ -1,0 +1,23 @@
+{
+  "skill_name": "frontend-h5",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "针对OrderSystem H5端进行UI还原开发，读取workspace/docs/ui-ue/v1.0.0/h5/中的设计规范和视觉设计文档，完成首页和商品列表页的开发",
+      "expected_output": "完成H5端首页和商品列表页开发，输出自检报告（构建成功+服务启动成功）",
+      "files": ["workspace/docs/ui-ue/v1.0.0/h5/设计规范.md", "workspace/docs/ui-ue/v1.0.0/h5/视觉设计.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "对OrderSystem H5端进行移动端适配，确保页面在iOS和Android设备上正常显示，处理安全区域",
+      "expected_output": "完成移动端适配，输出UI还原检查报告",
+      "files": ["workspace/docs/ui-ue/v1.0.0/h5/适配规范.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "对OrderSystem H5端进行接口对接，完成首页和商品列表接口的联调",
+      "expected_output": "完成接口对接，输出接口对接记录",
+      "files": ["workspace/docs/architect/v1.0.0/接口设计.md"]
+    }
+  ]
+}
