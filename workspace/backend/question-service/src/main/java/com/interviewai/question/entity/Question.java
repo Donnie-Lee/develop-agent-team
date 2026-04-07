@@ -49,5 +49,6 @@ public class Question {
     private LocalDateTime updatedAt;
 
     @TableField("deleted_at")
+    @TableLogic
     private LocalDateTime deletedAt;
 }

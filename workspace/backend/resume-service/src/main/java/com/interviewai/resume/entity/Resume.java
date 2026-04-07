@@ -41,5 +41,6 @@ public class Resume {
     private LocalDateTime updatedAt;
 
     @TableField("deleted_at")
+    @TableLogic
     private LocalDateTime deletedAt;
 }

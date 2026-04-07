@@ -45,5 +45,6 @@ public class InterviewQuestion {
     private LocalDateTime updatedAt;
 
     @TableField("deleted_at")
+    @TableLogic
     private LocalDateTime deletedAt;
 }

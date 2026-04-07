@@ -38,5 +38,6 @@ public class Notification {
     private LocalDateTime updatedAt;
 
     @TableField("deleted_at")
+    @TableLogic
     private LocalDateTime deletedAt;
 }
