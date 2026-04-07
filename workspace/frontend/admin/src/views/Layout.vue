@@ -2,7 +2,7 @@
   <el-container class="layout-container">
     <el-aside width="200px">
       <div class="logo">
-        <img src="@/assets/logo.png" alt="InterviewAI" />
+        <img src="@/assets/logo.svg" alt="InterviewAI" />
         <span>管理后台</span>
       </div>
       <el-menu
