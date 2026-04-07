@@ -1,0 +1,57 @@
+# GitLab CI/CD 主配置
+# AI面试练习平台
+
+stages:
+  - test
+  - build
+  - deploy
+
+include:
+  - local: '.gitlab-ci/ci-common.yml'
+  - local: '.gitlab-ci/user-service.yml'
+  - local: '.gitlab-ci/resume-service.yml'
+  - local: '.gitlab-ci/interview-service.yml'
+  - local: '.gitlab-ci/ai-gateway.yml'
+
+# 全局测试阶段
+test:all:
+  stage: test
+  extends: .docker-base
+  script:
+    - mvn test -Dspring.profiles.active=test
+  coverage: '/Total.*?([0-9]{1,3})%/'
+  only:
+    - develop
+    - merge_requests
+
+# Kubernetes部署配置
+deploy:develop:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  before_script:
+    - kubectl config use-context develop
+  script:
+    - |
+      echo "Deploying to development environment..."
+      # 使用helm部署或kubectl apply
+      # kubectl apply -f k8s/development/
+  environment:
+    name: development
+  only:
+    - develop
+
+deploy:prod:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  before_script:
+    - kubectl config use-context production
+  script:
+    - |
+      echo "Deploying to production environment..."
+      # 蓝绿部署或滚动更新
+      # kubectl apply -f k8s/production/
+  environment:
+    name: production
+  when: manual
+  only:
+    - tags

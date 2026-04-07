@@ -1,0 +1,58 @@
+server:
+  port: 8085
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/interview_ai?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: postgres
+    password: postgres
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+      timeout: 3000ms
+
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: localhost:8848
+
+jwt:
+  secret: dev-secret-key-change-in-production-12345678
+  access-token-expiration: 900000
+  refresh-token-expiration: 604800000
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deletedAt
+
+payment:
+  alipay:
+    app-id:
+    private-key:
+    alipay-public-key:
+    gateway-url: https://openapi.alipay.com/gateway.do
+    notify-url: http://localhost:8085/api/v1/member/notify
+  wechat:
+    app-id:
+    mch-id:
+    api-key:
+    notify-url: http://localhost:8085/api/v1/member/notify
+
+logging:
+  level:
+    com.interviewai: DEBUG
