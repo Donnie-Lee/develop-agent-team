@@ -6,13 +6,13 @@ export const useUserStore = defineStore('user', () => {
   const token = ref(localStorage.getItem('admin_token') || '')
   const userInfo = ref(null)
 
-  const login = async (username, password) => {
+  const login = async (phone, code) => {
     try {
-      const res = await api.post('/auth/login', { username, password })
+      const res = await api.post('/user/login-phone', { phone, code })
       if (res.data.code === 0) {
-        token.value = res.data.data.token
-        localStorage.setItem('admin_token', res.data.data.token)
-        await fetchUserInfo()
+        token.value = res.data.data.accessToken
+        localStorage.setItem('admin_token', res.data.data.accessToken)
+        userInfo.value = res.data.data.userInfo
         return true
       }
       return false
@@ -22,7 +22,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await api.post('/user/logout')
+    } catch (error) {
+      console.error('Logout failed:', error)
+    }
     token.value = ''
     userInfo.value = null
     localStorage.removeItem('admin_token')

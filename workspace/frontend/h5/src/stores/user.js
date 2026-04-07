@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user', () => {
 
   const sendCode = async (phone) => {
     try {
-      const res = await api.post('/auth/sendCode', { phone })
+      const res = await api.post('/user/send-code', { phone, type: 'login' })
       if (res.data.code === 0) {
         showToast('验证码已发送')
         return true
@@ -25,11 +25,11 @@ export const useUserStore = defineStore('user', () => {
 
   const loginWithCode = async (phone, code) => {
     try {
-      const res = await api.post('/auth/phoneLogin', { phone, code })
+      const res = await api.post('/user/login-phone', { phone, code })
       if (res.data.code === 0) {
-        token.value = res.data.data.token
-        localStorage.setItem('h5_token', res.data.data.token)
-        await fetchUserInfo()
+        token.value = res.data.data.accessToken
+        localStorage.setItem('h5_token', res.data.data.accessToken)
+        userInfo.value = res.data.data.userInfo
         return true
       }
       showToast(res.data.message || '登录失败')

@@ -6,23 +6,28 @@
         <p>智能面试练兵场 - 管理后台</p>
       </div>
       <el-form ref="loginFormRef" :model="loginForm" :rules="rules" class="login-form">
-        <el-form-item prop="username">
+        <el-form-item prop="phone">
           <el-input
-            v-model="loginForm.username"
-            placeholder="请输入用户名"
-            prefix-icon="User"
+            v-model="loginForm.phone"
+            placeholder="请输入手机号"
+            prefix-icon="Phone"
             size="large"
           />
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="code">
           <el-input
-            v-model="loginForm.password"
-            type="password"
-            placeholder="请输入密码"
+            v-model="loginForm.code"
+            placeholder="请输入验证码"
             prefix-icon="Lock"
             size="large"
             @keyup.enter="handleLogin"
-          />
+          >
+            <template #append>
+              <el-button :disabled="countdown > 0" @click="handleSendCode">
+                {{ countdown > 0 ? `${countdown}s` : '获取验证码' }}
+              </el-button>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -45,21 +50,48 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
+import api from '@/api'
 
 const router = useRouter()
 const userStore = useUserStore()
 
 const loginFormRef = ref(null)
 const loading = ref(false)
+const countdown = ref(0)
 
 const loginForm = reactive({
-  username: '',
-  password: ''
+  phone: '',
+  code: ''
 })
 
 const rules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+  phone: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确', trigger: 'blur' }
+  ],
+  code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+}
+
+let countdownTimer = null
+
+const handleSendCode = async () => {
+  if (!loginForm.phone || !/^1[3-9]\d{9}$/.test(loginForm.phone)) {
+    ElMessage.warning('请输入正确的手机号')
+    return
+  }
+  try {
+    await api.post('/user/send-code', { phone: loginForm.phone, type: 'login' })
+    ElMessage.success('验证码已发送')
+    countdown.value = 60
+    countdownTimer = setInterval(() => {
+      countdown.value--
+      if (countdown.value <= 0) {
+        clearInterval(countdownTimer)
+      }
+    }, 1000)
+  } catch (error) {
+    ElMessage.error('发送验证码失败')
+  }
 }
 
 const handleLogin = async () => {
@@ -69,7 +101,7 @@ const handleLogin = async () => {
     if (valid) {
       loading.value = true
       try {
-        const success = await userStore.login(loginForm.username, loginForm.password)
+        const success = await userStore.login(loginForm.phone, loginForm.code)
         if (success) {
           ElMessage.success('登录成功')
           router.push('/')

@@ -9,7 +9,7 @@ export const useResumeStore = defineStore('resume', () => {
 
   const fetchResumes = async () => {
     try {
-      const res = await api.get('/resume/list')
+      const res = await api.get('/resumes')
       if (res.data.code === 0) {
         resumes.value = res.data.data || []
       }
@@ -20,7 +20,7 @@ export const useResumeStore = defineStore('resume', () => {
 
   const fetchResumeDetail = async (id) => {
     try {
-      const res = await api.get(`/resume/detail/${id}`)
+      const res = await api.get(`/resumes/${id}`)
       if (res.data.code === 0) {
         currentResume.value = res.data.data
         return currentResume.value
@@ -34,7 +34,7 @@ export const useResumeStore = defineStore('resume', () => {
 
   const createResume = async (data) => {
     try {
-      const res = await api.post('/resume/create', data)
+      const res = await api.post('/resumes', data)
       if (res.data.code === 0) {
         showToast('创建成功')
         await fetchResumes()
@@ -49,7 +49,7 @@ export const useResumeStore = defineStore('resume', () => {
 
   const updateResume = async (id, data) => {
     try {
-      const res = await api.put(`/resume/update/${id}`, data)
+      const res = await api.put(`/resumes/${id}`, data)
       if (res.data.code === 0) {
         showToast('保存成功')
         return true
@@ -63,7 +63,7 @@ export const useResumeStore = defineStore('resume', () => {
 
   const deleteResume = async (id) => {
     try {
-      const res = await api.delete(`/resume/delete/${id}`)
+      const res = await api.delete(`/resumes/${id}`)
       if (res.data.code === 0) {
         showToast('删除成功')
         await fetchResumes()
@@ -76,17 +76,16 @@ export const useResumeStore = defineStore('resume', () => {
     }
   }
 
-  const setDefaultResume = async (id) => {
+  const parseResume = async (id) => {
     try {
-      const res = await api.post(`/resume/setDefault/${id}`)
+      const res = await api.post(`/resumes/${id}/parse`)
       if (res.data.code === 0) {
-        showToast('已设为默认简历')
-        await fetchResumes()
+        showToast('简历解析中...')
         return true
       }
       return false
     } catch (error) {
-      console.error('Set default resume failed:', error)
+      console.error('Parse resume failed:', error)
       return false
     }
   }
@@ -95,7 +94,7 @@ export const useResumeStore = defineStore('resume', () => {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      const res = await api.post('/resume/upload', formData, {
+      const res = await api.post('/resumes/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       if (res.data.code === 0) {
@@ -117,7 +116,7 @@ export const useResumeStore = defineStore('resume', () => {
     createResume,
     updateResume,
     deleteResume,
-    setDefaultResume,
+    parseResume,
     uploadFile
   }
 })
