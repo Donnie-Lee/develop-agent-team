@@ -34,13 +34,13 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public Result<MemberResponse> getMemberById(@PathVariable Long id) {
+    public Result<MemberResponse> getMemberById(@PathVariable("id") Long id) {
         MemberResponse response = memberService.getMemberById(id);
         return Result.success(response);
     }
 
     @GetMapping("/user/{userId}")
-    public Result<MemberResponse> getMemberByUserId(@PathVariable Long userId) {
+    public Result<MemberResponse> getMemberByUserId(@PathVariable("userId") Long userId) {
         MemberResponse response = memberService.getMemberByUserId(userId);
         return Result.success(response);
     }
@@ -53,21 +53,21 @@ public class MemberController {
 
     @PutMapping("/{id}")
     public Result<MemberResponse> updateMember(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @Valid @RequestBody UpdateMemberRequest request) {
         MemberResponse response = memberService.updateMember(id, request);
         return Result.success(response);
     }
 
     @DeleteMapping("/{id}")
-    public Result<Void> deleteMember(@PathVariable Long id) {
+    public Result<Void> deleteMember(@PathVariable("id") Long id) {
         memberService.deleteMember(id);
         return Result.success();
     }
 
     @PostMapping("/{id}/renew")
     public Result<MemberResponse> renewMember(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime expireTime) {
         MemberResponse response = memberService.renewMember(id, expireTime);
         return Result.success(response);

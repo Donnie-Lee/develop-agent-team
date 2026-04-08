@@ -33,4 +33,8 @@ public class ResumeDetail {
 
     @TableField(value = "updated_at", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedAt;
+
+    @TableField("deleted_at")
+    @TableLogic(value = "null", delval = "now()")
+    private LocalDateTime deletedAt;
 }

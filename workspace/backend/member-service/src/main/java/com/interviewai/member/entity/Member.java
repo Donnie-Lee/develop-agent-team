@@ -41,6 +41,6 @@ public class Member {
     private LocalDateTime updatedAt;
 
     @TableField("deleted_at")
-    @TableLogic
+    @TableLogic(value = "null", delval = "now()")
     private LocalDateTime deletedAt;
 }

@@ -112,11 +112,12 @@ const handleApply = (job) => {
 <style lang="scss" scoped>
 .home-page {
   background: #F8F9FA;
+  padding-bottom: 50px;
 }
 
 .banner {
   background: linear-gradient(135deg, #1A73E8 0%, #4285F4 100%);
-  padding: 48px 24px;
+  padding: 32px 24px;
   color: white;
 
   .banner-content {

@@ -148,6 +148,7 @@ const handleDelete = async (resume) => {
 .resume-list-page {
   min-height: 100vh;
   background: #F8F9FA;
+  padding-bottom: 24px;
 }
 
 .page-header {
@@ -157,6 +158,9 @@ const handleDelete = async (resume) => {
   padding: 16px;
   background: white;
   border-bottom: 1px solid #E8EAED;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   .header-left {
     display: flex;

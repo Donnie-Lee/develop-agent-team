@@ -13,11 +13,11 @@ export default defineConfig({
     port: 3001,
     proxy: {
       '/api/v1/user': {
-        target: 'http://localhost:8081',
+        target: 'http://localhost:8082',
         changeOrigin: true
       },
       '/api/v1/resumes': {
-        target: 'http://localhost:8082',
+        target: 'http://localhost:8081',
         changeOrigin: true
       }
     }

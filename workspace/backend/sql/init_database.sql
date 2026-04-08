@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS resume_details (
     sort_order      INT DEFAULT 0 COMMENT '排序',
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at      TIMESTAMP COMMENT '软删除时间',
     INDEX idx_resume (resume_id),
     FOREIGN KEY (resume_id) REFERENCES resumes(id)
 );

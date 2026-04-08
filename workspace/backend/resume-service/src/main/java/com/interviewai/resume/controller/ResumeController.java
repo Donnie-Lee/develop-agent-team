@@ -47,7 +47,7 @@ public class ResumeController {
     @GetMapping("/{id}")
     public Result<ResumeDetailResponse> getResumeDetail(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         ResumeDetailResponse response = resumeService.getResumeDetail(userId, id);
         return Result.success(response);
@@ -56,7 +56,7 @@ public class ResumeController {
     @PutMapping("/{id}")
     public Result<ResumeDetailResponse> updateResume(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @Valid @RequestBody UpdateResumeRequest request) {
         Long userId = getUserIdFromToken(authHeader);
         ResumeDetailResponse response = resumeService.updateResume(userId, id, request);
@@ -66,7 +66,7 @@ public class ResumeController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteResume(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         resumeService.deleteResume(userId, id);
         return Result.success();
@@ -90,7 +90,7 @@ public class ResumeController {
     @PostMapping("/{id}/parse")
     public Result<ParseResponse> parseResume(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         ParseResponse response = resumeService.parseResume(userId, id);
         return Result.success(response);
@@ -99,7 +99,7 @@ public class ResumeController {
     @GetMapping("/{id}/analyze")
     public Result<AnalyzeResponse> analyzeResume(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         AnalyzeResponse response = resumeService.analyzeResume(userId, id);
         return Result.success(response);
@@ -108,7 +108,7 @@ public class ResumeController {
     @GetMapping("/{id}/suggestions")
     public Result<SuggestionsResponse> getSuggestions(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         SuggestionsResponse response = resumeService.getSuggestions(userId, id);
         return Result.success(response);

@@ -90,6 +90,21 @@ export const useResumeStore = defineStore('resume', () => {
     }
   }
 
+  const setDefaultResume = async (id) => {
+    try {
+      const res = await api.put(`/resumes/${id}`, { isDefault: true })
+      if (res.data.code === 0) {
+        showToast('设置成功')
+        await fetchResumes()
+        return true
+      }
+      return false
+    } catch (error) {
+      console.error('Set default resume failed:', error)
+      return false
+    }
+  }
+
   const uploadFile = async (file) => {
     try {
       const formData = new FormData()
@@ -117,6 +132,7 @@ export const useResumeStore = defineStore('resume', () => {
     updateResume,
     deleteResume,
     parseResume,
-    uploadFile
+    uploadFile,
+    setDefaultResume
   }
 })

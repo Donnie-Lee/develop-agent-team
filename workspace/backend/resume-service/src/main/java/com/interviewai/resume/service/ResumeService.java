@@ -44,7 +44,6 @@ public class ResumeService {
         List<Resume> resumes = resumeRepository.selectList(
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
                         .orderByDesc(Resume::getUpdatedAt)
         );
 
@@ -63,7 +62,7 @@ public class ResumeService {
         long count = resumeRepository.selectCount(
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
+
         );
 
         Resume resume = new Resume();
@@ -90,7 +89,6 @@ public class ResumeService {
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getId, resumeId)
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
         );
 
         if (resume == null) {
@@ -146,7 +144,7 @@ public class ResumeService {
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getId, resumeId)
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
+
         );
 
         if (resume == null) {
@@ -195,16 +193,15 @@ public class ResumeService {
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getId, resumeId)
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
+
         );
 
         if (resume == null) {
             throw new BusinessException(3001, "简历不存在");
         }
 
-        // 软删除
-        resume.setDeletedAt(LocalDateTime.now());
-        resumeRepository.updateById(resume);
+        // 软删除 - 使用 deleteById 让 MyBatis-Plus @TableLogic 自动处理
+        resumeRepository.deleteById(resumeId);
 
         // 删除关联的详情
         resumeDetailRepository.delete(
@@ -220,7 +217,7 @@ public class ResumeService {
                     new LambdaQueryWrapper<Resume>()
                             .eq(Resume::getId, resumeId)
                             .eq(Resume::getUserId, userId)
-                            .isNull(Resume::getDeletedAt)
+    
             );
             if (resume == null) {
                 throw new BusinessException(3001, "简历不存在");
@@ -253,7 +250,7 @@ public class ResumeService {
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getId, resumeId)
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
+
         );
 
         if (resume == null) {
@@ -278,7 +275,7 @@ public class ResumeService {
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getId, resumeId)
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
+
         );
 
         if (resume == null) {
@@ -323,7 +320,7 @@ public class ResumeService {
                 new LambdaQueryWrapper<Resume>()
                         .eq(Resume::getId, resumeId)
                         .eq(Resume::getUserId, userId)
-                        .isNull(Resume::getDeletedAt)
+
         );
 
         if (resume == null) {

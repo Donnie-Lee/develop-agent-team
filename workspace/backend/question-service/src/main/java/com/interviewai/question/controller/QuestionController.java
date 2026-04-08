@@ -37,7 +37,7 @@ public class QuestionController {
     @PutMapping("/{id}")
     public Result<QuestionResponse> updateQuestion(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @Valid @RequestBody UpdateQuestionRequest request) {
         QuestionResponse response = questionService.updateQuestion(id, request);
         return Result.success(response);
@@ -46,7 +46,7 @@ public class QuestionController {
     @GetMapping("/{id}")
     public Result<QuestionResponse> getQuestion(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         QuestionResponse response = questionService.getQuestion(id);
         return Result.success(response);
     }
@@ -54,7 +54,7 @@ public class QuestionController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteQuestion(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         questionService.deleteQuestion(id);
         return Result.success();
     }

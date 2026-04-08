@@ -31,7 +31,7 @@ public class NotificationController {
     }
 
     @GetMapping("/{id}")
-    public Result<NotificationResponse> getById(@PathVariable Long id) {
+    public Result<NotificationResponse> getById(@PathVariable("id") Long id) {
         NotificationResponse response = notificationService.getById(id);
         return Result.success(response);
     }
@@ -43,7 +43,7 @@ public class NotificationController {
     }
 
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
+    public Result<Void> delete(@PathVariable("id") Long id) {
         notificationService.delete(id);
         return Result.success();
     }

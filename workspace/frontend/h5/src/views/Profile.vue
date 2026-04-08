@@ -113,10 +113,10 @@ const stats = reactive({
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 
-onMounted(() => {
+onMounted(async () => {
   // 如果已登录，获取用户信息
   if (userStore.isLoggedIn) {
-    userStore.fetchUserInfo()
+    await userStore.fetchUserInfo()
     if (userStore.userInfo) {
       Object.assign(userInfo, userStore.userInfo)
     }

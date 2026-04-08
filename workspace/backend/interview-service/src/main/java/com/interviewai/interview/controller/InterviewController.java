@@ -35,7 +35,7 @@ public class InterviewController {
     @GetMapping("/{id}")
     public Result<InterviewResponse> getInterview(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         getUserIdFromToken(authHeader);
         InterviewResponse response = interviewService.getInterviewById(id);
         return Result.success(response);
@@ -52,7 +52,7 @@ public class InterviewController {
     @PutMapping("/{id}")
     public Result<InterviewResponse> updateInterview(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @Valid @RequestBody UpdateInterviewRequest request) {
         getUserIdFromToken(authHeader);
         InterviewResponse response = interviewService.updateInterview(id, request);
@@ -62,7 +62,7 @@ public class InterviewController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteInterview(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         getUserIdFromToken(authHeader);
         interviewService.deleteInterview(id);
         return Result.success();
@@ -71,7 +71,7 @@ public class InterviewController {
     @PostMapping("/{id}/start")
     public Result<SessionResponse> startInterview(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         SessionResponse response = interviewService.startInterviewSession(id, userId);
         return Result.success(response);
@@ -89,7 +89,7 @@ public class InterviewController {
     @GetMapping("/session/{sessionId}/questions")
     public Result<List<QuestionResponse>> getSessionQuestions(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long sessionId) {
+            @PathVariable("sessionId") Long sessionId) {
         getUserIdFromToken(authHeader);
         List<QuestionResponse> responses = interviewService.getQuestionsBySessionId(sessionId);
         return Result.success(responses);
@@ -98,7 +98,7 @@ public class InterviewController {
     @PostMapping("/{id}/finish")
     public Result<InterviewResponse> finishInterview(
             @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         Long userId = getUserIdFromToken(authHeader);
         InterviewResponse response = interviewService.finishInterview(id, userId);
         return Result.success(response);
