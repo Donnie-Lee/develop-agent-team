@@ -32,6 +32,38 @@ const routes = [
         component: () => import('@/views/ResumeEdit.vue')
       }
     ]
+  },
+  {
+    path: '/interview',
+    component: () => import('@/views/Layout.vue'),
+    redirect: '/interview/select',
+    children: [
+      {
+        path: 'select',
+        name: 'JobSelect',
+        component: () => import('@/views/interview/JobSelect.vue')
+      },
+      {
+        path: 'config',
+        name: 'InterviewConfig',
+        component: () => import('@/views/interview/InterviewConfig.vue')
+      },
+      {
+        path: 'text',
+        name: 'TextInterview',
+        component: () => import('@/views/interview/TextInterview.vue')
+      },
+      {
+        path: 'report/:id',
+        name: 'InterviewReport',
+        component: () => import('@/views/interview/InterviewReport.vue')
+      },
+      {
+        path: 'voice',
+        name: 'VoiceInterview',
+        component: () => import('@/views/interview/VoiceInterview.vue')
+      }
+    ]
   }
 ]
 

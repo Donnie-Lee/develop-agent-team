@@ -36,7 +36,7 @@
         </el-menu-item>
       </el-menu>
     </el-aside>
-    <el-container>
+    <el-container class="main-container">
       <el-header>
         <div class="header-left">
           <h2>{{ route.meta.title }}</h2>
@@ -157,5 +157,17 @@ const handleCommand = (command) => {
 .el-main {
   background: #F8F9FA;
   padding: 24px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.main-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -9,7 +9,7 @@ develop-agent-team/
 ├── CLAUDE.md              # 项目核心文档（必读）
 ├── README.md              # 项目入口说明
 ├── LICENSE                # 项目授权
-├── .claude/skill/                # 各角色Agent技能定义
+├── .claude/skills/                # 各角色Agent技能定义
 │   ├── pm-manager/       # 产品经理
 │   ├── architect/        # 架构师
 │   ├── backend-dev/      # 后端开发
@@ -27,15 +27,15 @@ develop-agent-team/
 
 | 角色 | Skill路径 | 职责 |
 |------|-----------|------|
-| 产品经理 | `.claude/skill/pm-manager` | 需求分析、PRD编写、项目规划 |
-| 架构师 | `.claude/skill/architect` | 技术架构设计、技术选型 |
-| 后端开发 | `.claude/skill/backend-dev` | API开发、数据库设计 |
-| 管理端开发 | `.claude/skill/frontend-admin` | Web管理后台开发 |
-| H5开发 | `.claude/skill/frontend-h5` | 移动端H5开发 |
-| App开发 | `.claude/skill/frontend-app` | iOS/Android App开发 |
-| 小程序开发 | `.claude/skill/frontend-miniprogram` | 微信/支付宝小程序开发 |
-| UI/UE设计师 | `.claude/skill/ui-ue` | 视觉设计、交互设计 |
-| 测试工程师 | `.claude/skill/qa-tester` | 测试用例、自动化测试 |
+| 产品经理 | `.claude/skills/pm-manager` | 需求分析、PRD编写、项目规划 |
+| 架构师 | `.claude/skills/architect` | 技术架构设计、技术选型 |
+| 后端开发 | `.claude/skills/backend-dev` | API开发、数据库设计 |
+| 管理端开发 | `.claude/skills/frontend-admin` | Web管理后台开发 |
+| H5开发 | `.claude/skills/frontend-h5` | 移动端H5开发 |
+| App开发 | `.claude/skills/frontend-app` | iOS/Android App开发 |
+| 小程序开发 | `.claude/skills/frontend-miniprogram` | 微信/支付宝小程序开发 |
+| UI/UE设计师 | `.claude/skills/ui-ue` | 视觉设计、交互设计 |
+| 测试工程师 | `.claude/skills/qa-tester` | 测试用例、自动化测试 |
 
 ## 工作流程
 
@@ -107,5 +107,5 @@ workspace/docs/
 ## 更多信息
 
 - 完整项目规范：见 `CLAUDE.md`
-- 各角色详细规范：见 `.claude/skill/{role}/SKILL.md`
-- 模板文件：见 `.claude/skill/{role}/references/`
+- 各角色详细规范：见 `.claude/skills/{role}/SKILL.md`
+- 模板文件：见 `.claude/skills/{role}/references/`

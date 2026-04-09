@@ -17,7 +17,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class ChatRequest {
 
-    @NotBlank(message = "消息内容不能为空")
     private String message;
 
     private String conversationId;
@@ -32,6 +31,8 @@ public class ChatRequest {
     private Integer maxTokens;
 
     private Map<String, Object> extraParams;
+
+    private List<Message> messages;
 
     private List<Message> history;
 

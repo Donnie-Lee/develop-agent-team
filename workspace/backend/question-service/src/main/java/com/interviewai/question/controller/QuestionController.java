@@ -62,8 +62,8 @@ public class QuestionController {
     @GetMapping
     public Result<List<QuestionResponse>> listQuestions(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "20") Integer pageSize) {
+            @RequestParam(defaultValue = "1",name = "page") Integer page,
+            @RequestParam(defaultValue = "20",name = "pageSize") Integer pageSize) {
         List<QuestionResponse> response = questionService.listQuestions(page, pageSize);
         return Result.success(response);
     }

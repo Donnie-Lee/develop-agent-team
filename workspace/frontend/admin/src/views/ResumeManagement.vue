@@ -6,25 +6,25 @@
         <el-button type="primary" @click="handleExport">导出数据</el-button>
       </div>
       <el-table :data="resumes" stripe style="width: 100%">
-        <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="title" label="简历标题" width="150" />
-        <el-table-column prop="userName" label="用户" width="120" />
+        <el-table-column prop="id" label="ID" />
+        <el-table-column prop="title" label="简历标题"  />
+        <el-table-column prop="userName" label="用户"  />
         <el-table-column prop="fileName" label="文件名" />
-        <el-table-column prop="parseStatus" label="解析状态" width="100">
+        <el-table-column prop="parseStatus" label="解析状态" >
           <template #default="{ row }">
             <el-tag :type="getParseStatusType(row.parseStatus)">
               {{ getParseStatusText(row.parseStatus) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="isDefault" label="默认" width="80">
+        <el-table-column prop="isDefault" label="默认" >
           <template #default="{ row }">
             <el-tag v-if="row.isDefault" type="success">是</el-tag>
             <span v-else>否</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="上传时间" width="180" />
-        <el-table-column label="操作" fixed="right" width="150">
+        <el-table-column prop="createTime" label="上传时间"  />
+        <el-table-column label="操作" fixed="right" >
           <template #default="{ row }">
             <el-button link type="primary" @click="handleView(row)">查看</el-button>
             <el-button link type="danger" @click="handleDelete(row)">删除</el-button>

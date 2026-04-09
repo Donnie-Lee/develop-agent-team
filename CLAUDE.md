@@ -82,7 +82,7 @@
 
 ### 2.1 产品经理
 
-**Skill位置**：`.claude/skill/pm-manager`
+**Skill位置**：`.claude/skills/pm-manager`
 
 **职责范围**：
 
@@ -110,7 +110,7 @@
 
 ### 2.2 UI/UE设计师
 
-**Skill位置**：`.claude/skill/ui-ue`
+**Skill位置**：`.claude/skills/ui-ue`
 
 **职责范围**：
 
@@ -139,7 +139,7 @@
 
 ### 2.3 架构师
 
-**Skill位置**：`.claude/skill/architect`
+**Skill位置**：`.claude/skills/architect`
 
 **职责范围**：
 
@@ -166,7 +166,7 @@
 
 ### 2.4 后端开发
 
-**Skill位置**：`.claude/skill/backend-dev`
+**Skill位置**：`.claude/skills/backend-dev`
 
 **职责范围**：
 
@@ -201,7 +201,7 @@
 
 #### 2.5.1 管理端开发
 
-**Skill位置**：`.claude/skill/frontend-admin`
+**Skill位置**：`.claude/skills/frontend-admin`
 
 **技术框架**：
 
@@ -226,7 +226,7 @@
 
 #### 2.5.2 H5开发
 
-**Skill位置**：`.claude/skill/frontend-h5`
+**Skill位置**：`.claude/skills/frontend-h5`
 
 **适配要求**：
 
@@ -250,7 +250,7 @@
 
 #### 2.5.3 移动端开发
 
-**Skill位置**：`.claude/skill/frontend-app`
+**Skill位置**：`.claude/skills/frontend-app`
 
 **平台支持**：
 
@@ -282,7 +282,7 @@
 
 #### 2.5.4 小程序开发
 
-**Skill位置**：`.claude/skill/frontend-miniprogram`
+**Skill位置**：`.claude/skills/frontend-miniprogram`
 
 **平台规范**：
 
@@ -316,7 +316,7 @@
 
 ### 2.6 测试工程师
 
-**Skill位置**：`.claude/skill/qa-tester`
+**Skill位置**：`.claude/skillsqa-tester`
 
 **职责范围**：
 

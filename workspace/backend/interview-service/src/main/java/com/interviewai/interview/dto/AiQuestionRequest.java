@@ -1,6 +1,5 @@
 package com.interviewai.interview.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,13 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubmitAnswerRequest {
+public class AiQuestionRequest {
 
-    private Long sessionId;
+    private String position;
 
-    private Long questionId;
-
-    private String questionText;
-
-    private String answer;
+    private String interviewType;
 }

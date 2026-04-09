@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,6 +36,9 @@ public class InterviewService {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private AiQuestionService aiQuestionService;
 
     private static final String INTERVIEW_CACHE_PREFIX = "interview:";
 
@@ -210,6 +214,29 @@ public class InterviewService {
         return questions.stream().map(this::toQuestionResponse).collect(Collectors.toList());
     }
 
+    public List<QuestionResponse> getQuestionsByInterviewId(Long interviewId, Long userId) {
+        Interview interview = interviewRepository.selectById(interviewId);
+        if (interview == null) {
+            throw new BusinessException(3001, "面试记录不存在");
+        }
+        if (!interview.getUserId().equals(userId)) {
+            throw new BusinessException(3002, "无权限访问该面试");
+        }
+
+        // Find active session for this interview
+        LambdaQueryWrapper<InterviewSession> sessionQueryWrapper = new LambdaQueryWrapper<>();
+        sessionQueryWrapper.eq(InterviewSession::getInterviewId, interviewId)
+                .eq(InterviewSession::getStatus, "active");
+        InterviewSession session = sessionRepository.selectOne(sessionQueryWrapper);
+
+        if (session == null) {
+            // No active session, return empty list or throw exception
+            return List.of();
+        }
+
+        return getQuestionsBySessionId(session.getId());
+    }
+
     @Transactional
     public InterviewResponse finishInterview(Long interviewId, Long userId) {
         Interview interview = interviewRepository.selectById(interviewId);
@@ -248,6 +275,151 @@ public class InterviewService {
         redisTemplate.delete(INTERVIEW_CACHE_PREFIX + interviewId);
 
         return toInterviewResponse(interview);
+    }
+
+    @Transactional
+    public QuestionResponse generateQuestions(Long interviewId, Long userId, String position, String interviewType) {
+        Interview interview = interviewRepository.selectById(interviewId);
+        if (interview == null) {
+            throw new BusinessException(3001, "面试记录不存在");
+        }
+        if (!interview.getUserId().equals(userId)) {
+            throw new BusinessException(3002, "无权限访问该面试");
+        }
+
+        // Get or create active session
+        InterviewSession session = getOrCreateSession(interviewId, userId, interviewType);
+
+        // Generate questions using AI
+        List<InterviewQuestion> questions = aiQuestionService.generateQuestions(interviewId, userId, position, interviewType);
+
+        if (!questions.isEmpty()) {
+            return toQuestionResponse(questions.get(0));
+        }
+
+        throw new BusinessException(3001, "问题生成失败");
+    }
+
+    @Transactional
+    public QuestionResponse generateFollowUpQuestion(Long interviewId, Long sessionId, Long userId,
+                                                    String previousQuestion, String previousAnswer) {
+        Interview interview = interviewRepository.selectById(interviewId);
+        if (interview == null) {
+            throw new BusinessException(3001, "面试记录不存在");
+        }
+
+        InterviewSession session = sessionRepository.selectById(sessionId);
+        if (session == null) {
+            throw new BusinessException(3001, "会话不存在");
+        }
+        if (!session.getUserId().equals(userId)) {
+            throw new BusinessException(3002, "无权限访问该会话");
+        }
+
+        // Generate follow-up question
+        InterviewQuestion followUp = aiQuestionService.generateFollowUpQuestion(
+                interviewId, sessionId, userId, previousQuestion, previousAnswer);
+
+        // Update session progress
+        session.setCurrentQuestionIndex(session.getCurrentQuestionIndex() + 1);
+        sessionRepository.updateById(session);
+
+        // Save to conversation history
+        aiQuestionService.saveConversationHistory(sessionId, "user", previousAnswer);
+        aiQuestionService.saveConversationHistory(sessionId, "assistant", followUp.getQuestionText());
+
+        return toQuestionResponse(followUp);
+    }
+
+    public InterviewReportResponse generateReport(Long interviewId, Long userId) {
+        Interview interview = interviewRepository.selectById(interviewId);
+        if (interview == null) {
+            throw new BusinessException(3001, "面试记录不存在");
+        }
+        if (!interview.getUserId().equals(userId)) {
+            throw new BusinessException(3002, "无权限访问该面试");
+        }
+
+        // Generate report using AI
+        Map<String, Object> reportData = aiQuestionService.generateReport(interviewId);
+
+        // Build response
+        return InterviewReportResponse.builder()
+                .interviewId(interviewId)
+                .position(interview.getPosition())
+                .interviewType(interview.getInterviewType())
+                .summary((String) reportData.get("summary"))
+                .strengths((List<String>) reportData.get("strengths"))
+                .weaknesses((List<String>) reportData.get("weaknesses"))
+                .recommendation((String) reportData.get("recommendation"))
+                .overallScore((Integer) reportData.get("overallScore"))
+                .questionCount((Integer) reportData.get("questionCount"))
+                .answeredCount((Integer) reportData.get("answeredCount"))
+                .generatedAt((String) reportData.get("generatedAt"))
+                .build();
+    }
+
+    @Transactional
+    public Map<String, Object> analyzeAnswer(Long interviewId, Long questionId, String answer) {
+        InterviewQuestion question = questionRepository.selectById(questionId);
+        if (question == null) {
+            throw new BusinessException(3001, "问题不存在");
+        }
+
+        // Analyze answer using AI
+        Map<String, Object> analysis = aiQuestionService.analyzeAnswer(question.getQuestionText(), answer);
+
+        // Update question with answer and score
+        question.setUserAnswer(answer);
+        question.setStatus("answered");
+
+        if (analysis.containsKey("score")) {
+            question.setScore((Integer) analysis.get("score"));
+        }
+        if (analysis.containsKey("feedback")) {
+            question.setFeedback((String) analysis.get("feedback"));
+        }
+
+        questionRepository.updateById(question);
+
+        // Update interview answered count
+        Interview interview = interviewRepository.selectById(interviewId);
+        if (interview != null) {
+            interview.setAnsweredCount(interview.getAnsweredCount() + 1);
+            interviewRepository.updateById(interview);
+        }
+
+        // Update session progress
+        LambdaQueryWrapper<InterviewSession> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(InterviewSession::getInterviewId, interviewId)
+                .eq(InterviewSession::getStatus, "active");
+        InterviewSession session = sessionRepository.selectOne(queryWrapper);
+        if (session != null) {
+            session.setCurrentQuestionIndex(session.getCurrentQuestionIndex() + 1);
+            sessionRepository.updateById(session);
+        }
+
+        return analysis;
+    }
+
+    private InterviewSession getOrCreateSession(Long interviewId, Long userId, String interviewType) {
+        LambdaQueryWrapper<InterviewSession> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(InterviewSession::getInterviewId, interviewId)
+                .eq(InterviewSession::getStatus, "active");
+        InterviewSession session = sessionRepository.selectOne(queryWrapper);
+
+        if (session == null) {
+            session = new InterviewSession();
+            session.setInterviewId(interviewId);
+            session.setUserId(userId);
+            session.setSessionType(interviewType);
+            session.setStatus("active");
+            session.setCurrentQuestionIndex(0);
+            session.setStartedAt(LocalDateTime.now());
+            sessionRepository.insert(session);
+        }
+
+        return session;
     }
 
     private InterviewResponse toInterviewResponse(Interview interview) {

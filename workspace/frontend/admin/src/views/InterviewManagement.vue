@@ -6,23 +6,23 @@
         <el-button type="primary" @click="handleExport">导出数据</el-button>
       </div>
       <el-table :data="interviews" stripe style="width: 100%">
-        <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="userName" label="用户" width="120" />
-        <el-table-column prop="position" label="应聘职位" width="150" />
-        <el-table-column prop="interviewType" label="面试类型" width="100" />
-        <el-table-column prop="score" label="得分" width="80">
+        <el-table-column prop="id" label="ID" / />
+        <el-table-column prop="userName" label="用户"  />
+        <el-table-column prop="position" label="应聘职位"  />
+        <el-table-column prop="interviewType" label="面试类型"  />
+        <el-table-column prop="score" label="得分" >
           <template #default="{ row }">
             <span :style="{ color: getScoreColor(row.score) }">{{ row.score }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="duration" label="时长" width="80" />
-        <el-table-column prop="questionCount" label="题目数" width="80" />
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="duration" label="时长"  />
+        <el-table-column prop="questionCount" label="题目数"  />
+        <el-table-column prop="status" label="状态" >
           <template #default="{ row }">
             <el-tag :type="getStatusType(row.status)">{{ row.statusText }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="面试时间" width="180" />
+        <el-table-column prop="createTime" label="面试时间" />
         <el-table-column label="操作" fixed="right" width="120">
           <template #default="{ row }">
             <el-button link type="primary" @click="handleView(row)">查看</el-button>

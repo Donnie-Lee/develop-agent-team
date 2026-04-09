@@ -108,6 +108,16 @@ public class AiGatewayService {
     private List<Map<String, String>> buildMessages(ChatRequest request) {
         List<Map<String, String>> messages = new ArrayList<>();
 
+        // Support OpenAI-style messages array
+        if (request.getMessages() != null && !request.getMessages().isEmpty()) {
+            for (ChatRequest.Message msg : request.getMessages()) {
+                if (msg.getContent() != null && !msg.getContent().isEmpty()) {
+                    messages.add(Map.of("role", msg.getRole() != null ? msg.getRole() : "user", "content", msg.getContent()));
+                }
+            }
+            return messages;
+        }
+
         // Add history if provided
         if (request.getHistory() != null) {
             for (ChatRequest.Message msg : request.getHistory()) {
@@ -116,7 +126,9 @@ public class AiGatewayService {
         }
 
         // Add current message
-        messages.add(Map.of("role", "user", "content", request.getMessage()));
+        if (request.getMessage() != null && !request.getMessage().isEmpty()) {
+            messages.add(Map.of("role", "user", "content", request.getMessage()));
+        }
 
         return messages;
     }

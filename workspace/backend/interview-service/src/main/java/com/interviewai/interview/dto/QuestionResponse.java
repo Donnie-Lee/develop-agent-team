@@ -16,9 +16,11 @@ public class QuestionResponse {
     private Long sessionId;
     private String questionType;
     private String questionText;
+    private String expectedAnswer;
     private String userAnswer;
     private Integer score;
     private String feedback;
     private Integer orderIndex;
     private String status;
+    private String createdAt;
 }

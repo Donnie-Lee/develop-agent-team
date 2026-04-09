@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan("com.interviewai.common")
+@ComponentScan({"com.interviewai.common", "com.interviewai.aigateway"})
 public class AiGatewayApplication {
 
     public static void main(String[] args) {

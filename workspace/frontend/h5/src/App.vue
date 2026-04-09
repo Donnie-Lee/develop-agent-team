@@ -24,8 +24,21 @@ const active = ref(0)
 // 需要显示 TabBar 的路由
 const tabBarRoutes = ['/home', '/resume', '/profile']
 
+// 隐藏 TabBar 的路由（面试相关页面）
+const hideTabBarRoutes = [
+  '/interview/select',
+  '/interview/config',
+  '/interview/text',
+  '/interview/report',
+  '/interview/voice'
+]
+
 // 根据当前路由判断是否显示 TabBar
 const showTabBar = computed(() => {
+  // 首先检查是否在隐藏列表中
+  if (hideTabBarRoutes.some(r => route.path.includes(r))) {
+    return false
+  }
   return tabBarRoutes.some(r => route.path.includes(r))
 })
 

@@ -64,17 +64,22 @@ a {
   }
 }
 
-// 页面容器
+// 页面容器 - 占满宽度
 .page-container {
   padding: $spacing-xl;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-// 卡片样式
+// 卡片样式 - 占满宽度
 .card {
   background: $bg-white;
   border-radius: $radius-lg;
   box-shadow: $shadow-medium;
   padding: $spacing-lg;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 // 按钮样式

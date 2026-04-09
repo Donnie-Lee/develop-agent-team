@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -95,6 +96,15 @@ public class InterviewController {
         return Result.success(responses);
     }
 
+    @GetMapping("/{id}/questions")
+    public Result<List<QuestionResponse>> getInterviewQuestions(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable("id") Long id) {
+        Long userId = getUserIdFromToken(authHeader);
+        List<QuestionResponse> responses = interviewService.getQuestionsByInterviewId(id, userId);
+        return Result.success(responses);
+    }
+
     @PostMapping("/{id}/finish")
     public Result<InterviewResponse> finishInterview(
             @RequestHeader("Authorization") String authHeader,
@@ -102,6 +112,48 @@ public class InterviewController {
         Long userId = getUserIdFromToken(authHeader);
         InterviewResponse response = interviewService.finishInterview(id, userId);
         return Result.success(response);
+    }
+
+    @PostMapping("/{id}/generate-questions")
+    public Result<QuestionResponse> generateQuestions(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable("id") Long id) {
+        Long userId = getUserIdFromToken(authHeader);
+        InterviewResponse interview = interviewService.getInterviewById(id);
+        QuestionResponse response = interviewService.generateQuestions(id, userId,
+                interview.getPosition(), interview.getInterviewType());
+        return Result.success(response);
+    }
+
+    @PostMapping("/{id}/follow-up")
+    public Result<QuestionResponse> generateFollowUp(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable("id") Long id,
+            @Valid @RequestBody SubmitAnswerRequest request) {
+        Long userId = getUserIdFromToken(authHeader);
+        QuestionResponse response = interviewService.generateFollowUpQuestion(id, request.getSessionId(), userId,
+                request.getQuestionText(), request.getAnswer());
+        return Result.success(response);
+    }
+
+    @GetMapping("/{id}/report")
+    public Result<InterviewReportResponse> getInterviewReport(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable("id") Long id) {
+        Long userId = getUserIdFromToken(authHeader);
+        InterviewReportResponse response = interviewService.generateReport(id, userId);
+        return Result.success(response);
+    }
+
+    @PostMapping("/{interviewId}/questions/{questionId}/analyze")
+    public Result<Map<String, Object>> analyzeAnswer(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable("interviewId") Long interviewId,
+            @PathVariable("questionId") Long questionId,
+            @RequestBody SubmitAnswerRequest request) {
+        getUserIdFromToken(authHeader);
+        Map<String, Object> result = interviewService.analyzeAnswer(interviewId, questionId, request.getAnswer());
+        return Result.success(result);
     }
 
     private Long getUserIdFromToken(String authHeader) {

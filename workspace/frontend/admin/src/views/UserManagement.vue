@@ -6,19 +6,19 @@
         <el-button type="primary" @click="handleExport">导出数据</el-button>
       </div>
       <el-table :data="users" stripe style="width: 100%">
-        <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="nickname" label="昵称" width="120" />
-        <el-table-column prop="phone" label="手机号" width="140" />
-        <el-table-column prop="email" label="邮箱" width="180" />
-        <el-table-column prop="vipStatus" label="VIP状态" width="100">
+        <el-table-column prop="id" label="ID" />
+        <el-table-column prop="nickname" label="昵称" />
+        <el-table-column prop="phone" label="手机号"  />
+        <el-table-column prop="email" label="邮箱" />
+        <el-table-column prop="vipStatus" label="VIP状态" >
           <template #default="{ row }">
             <el-tag :type="row.vipStatus === 'pro' ? 'danger' : 'info'">
               {{ row.vipStatus === 'pro' ? 'Pro' : '普通' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="注册时间" width="180" />
-        <el-table-column label="操作" fixed="right" width="150">
+        <el-table-column prop="createTime" label="注册时间" />
+        <el-table-column label="操作" fixed="right" >
           <template #default="{ row }">
             <el-button link type="primary" @click="handleView(row)">查看</el-button>
             <el-button link type="danger" @click="handleDisable(row)">禁用</el-button>
