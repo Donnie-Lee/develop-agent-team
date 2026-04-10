@@ -3,11 +3,13 @@
     <!-- 用户信息卡片 -->
     <div class="user-card">
       <div class="user-info">
-        <van-image round width="64" height="64" :src="userInfo.avatar || defaultAvatar" />
+        <van-image round width="64" height="64" :src="userInfo.avatarUrl || defaultAvatar" />
         <div class="user-detail">
           <div class="nickname-row">
             <span class="nickname">{{ userInfo.nickname || '用户' }}</span>
-            <van-tag type="danger" size="medium">VIP</van-tag>
+            <van-tag v-if="userInfo.memberLevel" type="danger" size="medium">
+              {{ userInfo.memberLevel === 'pro' ? 'VIP' : userInfo.memberLevel }}
+            </van-tag>
           </div>
           <span class="phone">{{ userInfo.phone || '未登录' }}</span>
         </div>
@@ -16,22 +18,26 @@
 
     <!-- 会员权益提示条 -->
     <div class="vip-tip" @click="handleUpgrade">
-      <span>升级Pro会员，解锁无限面试</span>
+      <span v-if="!userInfo.memberLevel">升级Pro会员，解锁无限面试</span>
+      <span v-else>会员有效期至：{{ formatExpireDate(userInfo.memberExpire) }}</span>
       <van-icon name="arrow" color="#FB8C00" />
     </div>
 
     <!-- 面试统计卡片 -->
     <div class="stats-card">
       <div class="stat-item">
-        <span class="stat-value">{{ stats.interviewCount }}</span>
+        <van-loading v-if="statsLoading" size="24px" />
+        <span v-else class="stat-value">{{ stats.interviewCount }}</span>
         <span class="stat-label">面试次数</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value">{{ stats.totalDuration }}</span>
+        <van-loading v-if="statsLoading" size="24px" />
+        <span v-else class="stat-value">{{ stats.totalDuration }}</span>
         <span class="stat-label">总时长</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value">{{ stats.avgScore }}</span>
+        <van-loading v-if="statsLoading" size="24px" />
+        <span v-else class="stat-value">{{ stats.avgScore }}</span>
         <span class="stat-label">平均分</span>
       </div>
     </div>
@@ -92,6 +98,7 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { fetchInterviewHistory } from '@/api/interview'
 import { showToast } from 'vant'
 
 const router = useRouter()
@@ -99,27 +106,99 @@ const userStore = useUserStore()
 
 const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
 
-const userInfo = reactive({
-  nickname: '张同学',
-  phone: '138****8888',
-  avatar: ''
+// 统计数据
+const stats = reactive({
+  interviewCount: 0,
+  totalDuration: '0h',
+  avgScore: 0
 })
 
-const stats = reactive({
-  interviewCount: 12,
-  totalDuration: '3.5h',
-  avgScore: 85
-})
+// 加载状态
+const loading = ref(false)
+const statsLoading = ref(false)
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 
-onMounted(async () => {
-  // 如果已登录，获取用户信息
-  if (userStore.isLoggedIn) {
+// 直接使用store中的用户信息
+const userInfo = computed(() => userStore.userInfo || {})
+
+// 获取用户信息
+const loadUserInfo = async () => {
+  if (!userStore.isLoggedIn) return
+  loading.value = true
+  try {
     await userStore.fetchUserInfo()
-    if (userStore.userInfo) {
-      Object.assign(userInfo, userStore.userInfo)
+  } finally {
+    loading.value = false
+  }
+}
+
+// 获取面试统计数据
+const loadStats = async () => {
+  if (!userStore.isLoggedIn) return
+  statsLoading.value = true
+  try {
+    const res = await fetchInterviewHistory()
+    if (res.data.code === 0) {
+      const list = res.data.data || []
+      calculateStats(list)
     }
+  } catch (error) {
+    console.error('获取面试记录失败:', error)
+  } finally {
+    statsLoading.value = false
+  }
+}
+
+// 计算统计数据
+const calculateStats = (interviewList) => {
+  const count = interviewList.length
+  let totalMinutes = 0
+  let totalScore = 0
+  let scoredCount = 0
+
+  interviewList.forEach(item => {
+    // 累加时长（如果duration是秒为单位）
+    if (item.duration) {
+      totalMinutes += Math.round(item.duration / 60)
+    }
+    // 累加分数
+    if (item.score !== undefined && item.score !== null) {
+      totalScore += item.score
+      scoredCount++
+    }
+  })
+
+  stats.interviewCount = count
+  stats.totalDuration = formatDuration(totalMinutes)
+  stats.avgScore = scoredCount > 0 ? Math.round(totalScore / scoredCount) : 0
+}
+
+// 格式化时长显示
+const formatDuration = (minutes) => {
+  if (minutes < 60) {
+    return `${minutes}分钟`
+  }
+  const hours = Math.floor(minutes / 60)
+  const mins = minutes % 60
+  if (mins === 0) {
+    return `${hours}h`
+  }
+  return `${hours}h${mins}分钟`
+}
+
+// 格式化会员过期日期
+const formatExpireDate = (expireTime) => {
+  if (!expireTime) return '未知'
+  const date = new Date(expireTime)
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  return `${month}月${day}日`
+}
+
+onMounted(async () => {
+  if (userStore.isLoggedIn) {
+    await Promise.all([loadUserInfo(), loadStats()])
   }
 })
 

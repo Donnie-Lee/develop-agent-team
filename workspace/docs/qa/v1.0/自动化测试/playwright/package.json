@@ -1,0 +1,22 @@
+{
+  "name": "interview-ai-playwright-tests",
+  "version": "1.0.0",
+  "description": "AI面试平台前端自动化测试",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:h5": "playwright test tests/h5.spec.js",
+    "test:admin": "playwright test tests/admin.spec.js",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "test:ci": "playwright test --reporter=html"
+  },
+  "keywords": ["playwright", "e2e", "test", "automation"],
+  "author": "QA Team",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
