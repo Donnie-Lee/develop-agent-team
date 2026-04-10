@@ -1,6 +1,7 @@
 package com.interviewai.question.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.interviewai.common.BusinessException;
 import com.interviewai.question.dto.CreateQuestionRequest;
@@ -10,6 +11,7 @@ import com.interviewai.question.dto.UpdateQuestionRequest;
 import com.interviewai.question.entity.Question;
 import com.interviewai.question.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -102,19 +104,25 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
-    public List<QuestionResponse> listQuestions(Integer page, Integer pageSize) {
+    public IPage<QuestionResponse> listQuestions(Integer page, Integer pageSize) {
         Page<Question> pageParam = new Page<>(page, pageSize);
         LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
         wrapper.orderByDesc(Question::getCreatedAt);
 
         Page<Question> result = questionRepository.selectPage(pageParam, wrapper);
 
-        return result.getRecords().stream()
+        // Map records and return Page with total info preserved
+        List<QuestionResponse> records = result.getRecords().stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
+
+        Page<QuestionResponse> questionResponsePage = new Page<>();
+        BeanUtils.copyProperties(result, questionResponsePage);
+        questionResponsePage.setRecords(records);
+        return questionResponsePage;
     }
 
-    public List<QuestionResponse> searchQuestions(SearchQuestionRequest request) {
+    public IPage<QuestionResponse> searchQuestions(SearchQuestionRequest request) {
         LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
 
         if (StringUtils.hasText(request.getKeyword())) {
@@ -140,9 +148,24 @@ public class QuestionService {
         Page<Question> pageParam = new Page<>(request.getPage(), request.getPageSize());
         Page<Question> result = questionRepository.selectPage(pageParam, wrapper);
 
-        return result.getRecords().stream()
+        // Map records and return Page with total info preserved
+        List<QuestionResponse> records = result.getRecords().stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
+        Page<QuestionResponse> questionResponsePage = new Page<>();
+        BeanUtils.copyProperties(result, questionResponsePage);
+        questionResponsePage.setRecords(records);
+        return questionResponsePage;
+    }
+
+    public Long getCount() {
+        try {
+            Long count = questionRepository.selectCount(null);
+            return count != null ? count : 0L;
+        } catch (Exception e) {
+            log.error("Failed to get question count", e);
+            return 0L;
+        }
     }
 
     private QuestionResponse toResponse(Question question) {

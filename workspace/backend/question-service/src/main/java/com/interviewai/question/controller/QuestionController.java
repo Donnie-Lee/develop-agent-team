@@ -8,6 +8,7 @@ import com.interviewai.question.dto.SearchQuestionRequest;
 import com.interviewai.question.dto.UpdateQuestionRequest;
 import com.interviewai.question.service.QuestionService;
 import com.interviewai.question.util.JwtUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,19 +61,26 @@ public class QuestionController {
     }
 
     @GetMapping
-    public Result<List<QuestionResponse>> listQuestions(
+    public Result<IPage<QuestionResponse>> listQuestions(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
             @RequestParam(defaultValue = "1",name = "page") Integer page,
             @RequestParam(defaultValue = "20",name = "pageSize") Integer pageSize) {
-        List<QuestionResponse> response = questionService.listQuestions(page, pageSize);
+        IPage<QuestionResponse> response = questionService.listQuestions(page, pageSize);
         return Result.success(response);
     }
 
     @GetMapping("/search")
-    public Result<List<QuestionResponse>> searchQuestions(
+    public Result<IPage<QuestionResponse>> searchQuestions(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
             @ModelAttribute SearchQuestionRequest request) {
-        List<QuestionResponse> response = questionService.searchQuestions(request);
+        IPage<QuestionResponse> response = questionService.searchQuestions(request);
         return Result.success(response);
+    }
+
+    @GetMapping("/count")
+    public Result<Long> getQuestionCount(
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+        Long count = questionService.getCount();
+        return Result.success(count);
     }
 }
