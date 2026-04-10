@@ -21,6 +21,7 @@
         <module>member-service</module>
         <module>notify-service</module>
         <module>ai-gateway</module>
+        <module>app</module>
     </modules>
 
     <properties>
