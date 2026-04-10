@@ -83,9 +83,9 @@ class AdminQuestionManagementPage {
     this.pagination = page.locator('.el-pagination');
     this.addDialog = page.locator('.el-dialog');
     this.titleInput = page.locator('input[placeholder*="题"], input[placeholder*="目"]');
-    this.contentInput = page.locator('textarea');
-    this.categorySelect = page.locator('.el-select');
-    this.difficultySelect = page.locator('.el-select').nth(1);
+    this.contentInput = page.locator('textarea').first();
+    this.categorySelect = page.locator('.el-dialog .el-select').first();
+    this.difficultySelect = page.locator('.el-dialog .el-select').nth(1);
     this.saveBtn = page.locator('.el-button--primary').filter({ hasText: /确定/ });
     this.cancelBtn = page.locator('.el-dialog__footer .el-button').filter({ hasText: /取消/ });
     this.deleteConfirmBtn = page.locator('.el-message-box__btns .el-button');
@@ -113,12 +113,38 @@ class AdminQuestionManagementPage {
     // 选择分类
     if (question.category) {
       await this.categorySelect.click();
-      await this.page.locator(`.el-option`).filter({ hasText: question.category }).click();
+      await this.page.waitForTimeout(500);
+      // 使用JavaScript点击下拉选项
+      await this.page.evaluate((cat) => {
+        const options = document.querySelectorAll('.el-select-dropdown__item, .el-option');
+        for (const opt of options) {
+          if (opt.textContent.includes(cat)) {
+            opt.click();
+            break;
+          }
+        }
+      }, question.category);
+      // 点击其他地方关闭下拉框
+      await this.page.locator('.el-dialog').click({ position: { x: 10, y: 10 } });
+      await this.page.waitForTimeout(300);
     }
     // 选择难度
     if (question.difficulty) {
       await this.difficultySelect.click();
-      await this.page.locator(`.el-option`).filter({ hasText: question.difficulty }).click();
+      await this.page.waitForTimeout(500);
+      // 使用JavaScript点击下拉选项
+      await this.page.evaluate((diff) => {
+        const options = document.querySelectorAll('.el-select-dropdown__item, .el-option');
+        for (const opt of options) {
+          if (opt.textContent.includes(diff)) {
+            opt.click();
+            break;
+          }
+        }
+      }, question.difficulty);
+      // 点击其他地方关闭下拉框
+      await this.page.locator('.el-dialog').click({ position: { x: 10, y: 10 } });
+      await this.page.waitForTimeout(300);
     }
   }
 
@@ -132,14 +158,12 @@ class AdminQuestionManagementPage {
   }
 
   async clickEdit(index = 0) {
-    // 使用 JavaScript 点击避免 Element Plus 表格样式问题
-    await this.page.evaluate((i) => {
-      const buttons = document.querySelectorAll('.el-table__row');
-      if (buttons[i]) {
-        const editBtn = buttons[i].querySelector('.el-button--link');
-        if (editBtn) editBtn.click();
-      }
-    }, index);
+    // 找到所有"编辑"按钮 - 使用原生button元素
+    const editButtons = this.page.locator('.el-table button').filter({ hasText: '编辑' });
+    const count = await editButtons.count();
+    if (count > 0) {
+      await editButtons.first().click({ force: true });
+    }
     await this.page.waitForTimeout(500);
   }
 
